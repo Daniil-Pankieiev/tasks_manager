@@ -12,7 +12,7 @@ from task.forms import (
     TaskForm,
     WorkerSearchForm,
     WorkerCreationForm,
-
+    TaskTypeSearchForm,
 )
 from task.models import Task, Worker, TaskType, Position
 
@@ -152,4 +152,44 @@ def finish_task(request, pk):
     task.is_completed = True
     task.save()
     return HttpResponseRedirect(reverse_lazy("task:task-detail", args=[pk]))
+
+
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskTypeListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = TaskTypeSearchForm(initial={"name": name})
+
+        return context
+
+    def get_queryset(self):
+        queryset = TaskType.objects.all()
+        form = TaskTypeSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+
+        return queryset
+
+
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task:tasktype-list")
+
+
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task:tasktype-list")
+
+
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = TaskType
+    success_url = reverse_lazy("task:tasktype-list")
 
