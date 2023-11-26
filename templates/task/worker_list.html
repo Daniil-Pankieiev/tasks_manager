@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Workers list
+    <a href="{% url 'task:worker-create' %}" class="btn btn-primary link-to-page">
+      Create Worker
+    </a>
+  </h1>
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-secondary" type="submit" value="Search">
+  </form>
+  {% if worker_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Position</th>
+        <th>Email</th>
+      </tr>
+      {% for worker in worker_list %}
+        <tr>
+          <td>{{ worker.id }}</td>
+
+          <td><a href="{% url "task:worker-detail" pk=worker.id %} ">{{ worker.username }}</a>
+          </td>
+          <td>{{ worker.first_name }}</td>
+          <td>{{ worker.last_name }}</td>
+          <td>{{ worker.position }}</td>
+          <td>{{ worker.email }}</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  {% else %}
+    <p>There are no drivers in the service.</p>
+  {% endif %}
+{% endblock %}

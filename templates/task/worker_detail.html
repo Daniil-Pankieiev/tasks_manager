@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Worker: {{ worker.username }}
+    <a href="{% url 'task:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+    <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h1>
+        {% if worker.email %}
+        <p><strong>Email:</strong> {{ worker.email }}</p>
+      {% endif %}
+      {% if worker.first_name %}
+        <p><strong>First name:</strong> {{ worker.first_name }}</p>
+      {% endif %}
+      {% if worker.last_name %}
+        <p><strong>Last name:</strong> {{ worker.last_name }}</p>
+      {% endif %}
+  <p><strong>Position:</strong> {{ worker.position }}</p>
+
+  <div class="ml-3">
+    <h4>Tasks in progress</h4>
+    {% if tasks_in_progress %}
+      {% for task in tasks_in_progress %}
+        <hr>
+        <p><strong>Task name:</strong>
+          <a href="{% url "task:task-detail" pk=task.id %} ">{{ task.name }}</a>
+        </p>
+        <p><strong>Task type:</strong> {{ task.task_type }}</p>
+        <p><strong>Priority:</strong> {{ task.priority }}</p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+      {% endfor %}
+    {% else %}
+      <p>No tasks!</p>
+    {% endif %}
+    <h4>Completed tasks</h4>
+    {% if completed_tasks %}
+      {% for task in completed_tasks %}
+        <hr>
+        <p><strong>Task name:</strong>
+          <a href="{% url "task:task-detail" pk=task.id %} ">{{ task.name }}</a>
+        </p>
+        <p><strong>Task type:</strong> {{ task.task_type }}</p>
+        <p><strong>Priority:</strong> {{ task.priority }}</p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+      {% endfor %}
+    {% else %}
+      <p>No tasks!</p>
+    {% endif %}
+  </div>
+{% endblock %}
