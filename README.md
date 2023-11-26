@@ -13,7 +13,7 @@ This system simplifies the organization and delegation of tasks, enabling users 
 - Dashboard: Access an overview showcasing pending tasks, completed assignments, and ongoing tasks.
 
 ## Check it out!
-[Task Manager deployed to Render](https://task-manager-uf55.onrender.com/)
+[Task Manager deployed to Render](https://tasks-manager-sgu4.onrender.com)
 
 ## Installation
 
