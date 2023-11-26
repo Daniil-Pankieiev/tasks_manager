@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-m-2*me7d%4um=g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ["127.0.0.1", "task-manager-uf55.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "https://tasks-manager-sgu4.onrender.com"]
 
 
 # Application definition
