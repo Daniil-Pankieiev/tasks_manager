@@ -6,6 +6,12 @@
     <li class="list-group-item"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
   {% endif %}
 
+  <br>
 
+  <li class="list-group-item"><a href="{% url 'task:index' %}">Home</a></li>
+  <li class="list-group-item"><a href="{% url 'task:task-list' %}">All tasks</a></li>
+  <li class="list-group-item"><a href="{% url 'task:worker-list' %}">All workers</a></li>
+  <li class="list-group-item"><a href="{% url 'task:tasktype-list' %}">All Tasks type</a></li>
+  <li class="list-group-item"><a href="{% url 'task:position-list' %}">All Positions</a></li>
 
 </ul>
