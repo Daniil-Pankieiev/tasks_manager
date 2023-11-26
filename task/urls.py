@@ -18,7 +18,10 @@ from task.views import (
     TaskTypeCreateView,
     TaskTypeUpdateView,
     TaskTypeDeleteView,
-
+    PositionListView,
+    PositionCreateView,
+    PositionUpdateView,
+    PositionDeleteView,
 )
 
 urlpatterns = [
@@ -98,5 +101,26 @@ urlpatterns = [
         TaskTypeDeleteView.as_view(),
         name="tasktype-delete",
     ),
+    path(
+        "positions/",
+        PositionListView.as_view(),
+        name="position-list",
+    ),
+    path(
+        "position/create/",
+        PositionCreateView.as_view(),
+        name="position-create",
+    ),
+    path(
+        "position/<int:pk>/update/",
+        PositionUpdateView.as_view(),
+        name="position-update",
+    ),
+    path(
+        "position/<int:pk>/delete/",
+        PositionDeleteView.as_view(),
+        name="position-delete",
+    ),
 ]
+
 app_name = "task"

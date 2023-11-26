@@ -33,17 +33,6 @@ class TaskForm(forms.ModelForm):
         return self.cleaned_data["deadline"]
 
 
-
-class TaskSearchForm(forms.Form):
-    name = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search by name"}
-        )
-    )
-
 class WorkerCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Worker
@@ -51,6 +40,7 @@ class WorkerCreationForm(UserCreationForm):
             "position",
             "first_name",
             "last_name",
+            "email"
         )
 
 
@@ -64,7 +54,29 @@ class WorkerSearchForm(forms.Form):
         )
     )
 
+
+class TaskSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by name"}
+        )
+    )
+
+
 class TaskTypeSearchForm(forms.Form):
+
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search"}),
+    )
+
+
+class PositionSearchForm(forms.Form):
 
     name = forms.CharField(
         max_length=255,
