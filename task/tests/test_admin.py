@@ -41,7 +41,10 @@ class AdminTests(TestCase):
         self.assertIn(self.worker1.username, result)
 
     def test_all_assignees_short_description(self):
-        self.assertEqual(self.task_admin.all_assignees.short_description, "assignees")
+        self.assertEqual(
+            self.task_admin.all_assignees.short_description,
+            "assignees"
+        )
 
     def test_task_list_filter(self):
         expected_filters = [
@@ -82,5 +85,7 @@ class AdminTests(TestCase):
 
     def test_admin_fieldsets(self):
         admin_fieldsets = UserAdmin.fieldsets
-        expected = admin_fieldsets + (("Additional info", {"fields": ("position",)}),)
+        expected = admin_fieldsets + (
+            ("Additional info", {"fields": ("position",)}),
+        )
         self.assertEqual(self.worker_admin.fieldsets, expected)
