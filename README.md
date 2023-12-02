@@ -15,35 +15,60 @@ This system simplifies the organization and delegation of tasks, enabling users 
 ## Check it out!
 [Task Manager deployed to Render](https://tasks-manager-sgu4.onrender.com)
 
+## Database schema
+[You can find it here](https://dbdiagram.io/d/656b49c956d8064ca03fcfbb)
+
 ## Installation
 
-1. **Clone the repository:**
+Clone the project
 
-   ```bash
-   git clone https://github.com/your-username/task-manager.git
-   
-2. **Navigate to the project directory:**
-   ```bash
-   cd task-manager
-3. **Install requirements:**
-   ```bash
-   pip install -r requirements.txt
-4. **Apply database migrations:**
-   ```bash
-   python manage.py migrate
-5. **Start the development server:**
-   ```bash
-   python manage.py runserver
-6. **Access the application:**
-Open a web browser and go to http://127.0.0.1:8000/ to access the Task Manager application.
+```bash
+  git clone https://github.com/Daniil-Pankieiev/tasks_manager.git
+```
 
+Open cloned folder
+
+### Create virtual environment
+
+On windows
+```
+  python -m venv venv
+  venv\Scripts\activate
+```
+On macOS
+```
+  python3 -m venv my_env
+  source my_env/bin/activate
+```
+
+Install dependencies
+
+```
+  pip install -r requirements.txt
+```
+
+### Set up DB
+
+Make migrations and migrate
+
+```
+  python manage.py makemigrations
+  python manage.py migrate
+```
 
 Use the following command to load prepared data from fixture to test and debug your code:
-  
+
 `python manage.py loaddata data.json`
 
-- After loading data from fixture you can use following superuser (or create another one by yourself):
-  - Login: `admin`
-  - Password: `admin123`
+After loading data from fixture you can use following superuser (or create another one by yourself):
+  - Login: `admin1`
+  - Password: `admin1`
+
+### Run server
+Finally, you can run server with
+```
+python manage.py runserver
+```
+Open a web browser and go to http://127.0.0.1:8000/ to access the Task Manager application.
 
 Feel free to add more data using admin panel, if you need.
