@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 choices=[("L", "Low"), ("M", "Medium"), ("H", "High")],
                 default="L",
-                max_length=2,
+                max_length=50,
             ),
         ),
     ]

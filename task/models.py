@@ -51,7 +51,7 @@ class Task(models.Model):
 
     name = models.CharField(max_length=255)
     status = models.CharField(
-        max_length=4,
+        max_length=50,
         choices=Status.choices,
         default=Status.IN_PROGRESS,
     )
@@ -60,7 +60,7 @@ class Task(models.Model):
     time_completed = models.DateTimeField(blank=True, null=True)
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(
-        max_length=1,
+        max_length=7,
         choices=Priority.choices,
         default=Priority.LOW,
     )

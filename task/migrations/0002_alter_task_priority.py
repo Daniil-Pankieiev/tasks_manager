@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                     ("H", "High Priority"),
                 ],
                 default="L",
-                max_length=2,
+                max_length=100,
             ),
         ),
     ]
