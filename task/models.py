@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 from tasks_manager.settings import AUTH_USER_MODEL
 
@@ -37,29 +38,31 @@ class Worker(AbstractUser):
 
 
 class Task(models.Model):
-    PRIORITY_CHOICES = (
-        ("Low", "Low"),
-        ("Medium", "Medium"),
-        ("High", "High"),
-    )
-    STATUS_CHOICES = (
-        ("In progress", "In progress"),
-        ("Completed on time", "Completed on time"),
-        ("Completed after the deadline", "Completed after the deadline"),
-    )
+    class Priority(models.TextChoices):
+        LOW = "L", "Low"
+        MEDIUM = "M", "Medium"
+        HIGH = "H", "High"
+
+    class Status(models.TextChoices):
+        IN_PROGRESS = "IP", "In progress"
+        IN_PROGRESS_AFTER_DEADLINE = "IPAD", "In progress after the deadline"
+        COMPLETED_ON_TIME = "COT", "Completed on time"
+        COMPLETED_AFTER_DEADLINE = "CAD", "Completed after the deadline"
+
     name = models.CharField(max_length=255)
     status = models.CharField(
-        max_length=100,
-        choices=STATUS_CHOICES,
-        default="In progress",
+        max_length=4,
+        choices=Status.choices,
+        default=Status.IN_PROGRESS,
     )
     description = models.TextField()
     deadline = models.DateField()
+    time_completed = models.DateTimeField(blank=True, null=True)
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(
-        max_length=10,
-        choices=PRIORITY_CHOICES,
-        default="LOW",
+        max_length=1,
+        choices=Priority.choices,
+        default=Priority.LOW,
     )
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assignees = models.ManyToManyField(AUTH_USER_MODEL, related_name="tasks")
@@ -69,3 +72,16 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+    def update_task_status(self):
+        if self.time_completed:
+            if self.deadline >= self.time_completed.date():
+                self.status = 'Completed on time'
+            else:
+                self.status = 'Completed after the deadline'
+        else:
+            if self.deadline >= timezone.now().date():
+                self.status = 'In progress'
+            else:
+                self.status = 'In progress after the deadline'
+        self.save()

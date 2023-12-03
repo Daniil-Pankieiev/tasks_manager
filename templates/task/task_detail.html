@@ -20,8 +20,11 @@
 
   <p><strong>Description:</strong> {{ task.description }}</p>
   <p><strong>Task type:</strong> {{ task.task_type }}</p>
-  <p><strong>Priority:</strong> {{ task.priority }}</p>
+  <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
   <p><strong>Status:</strong> {{ task.status }}</p>
+  {% if task.is_completed %}
+        <p><strong>Time competed:</strong> {{ task.time_completed }}</p>
+      {% endif %}
 
   <p><strong>Deadline:</strong> {{ task.deadline }}</p>
 

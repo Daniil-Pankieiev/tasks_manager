@@ -31,7 +31,7 @@
           <td>{{ task.task_type }}</td>
           <td>{{ task.deadline }}</td>
           <td>{{ task.status }}</td>
-          <td>{{ task.priority }}</td>
+          <td>{{ task.get_priority_display }}</td>
         </tr>
       {% endfor %}
 
