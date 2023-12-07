@@ -15,6 +15,10 @@ This system simplifies the organization and delegation of tasks, enabling users 
 ## Check it out!
 [Task Manager deployed to Render](https://tasks-manager-sgu4.onrender.com)
 
+You can use following superuser (or create another one by yourself):
+  - Login: `testadminuser`
+  - Password: `passwordadmin`
+
 ## Database schema
 [You can find it here](https://dbdiagram.io/d/656b49c956d8064ca03fcfbb)
 
@@ -49,10 +53,9 @@ Install dependencies
 
 ### Set up DB
 
-Make migrations and migrate
+Migrate
 
 ```
-  python manage.py makemigrations
   python manage.py migrate
 ```
 

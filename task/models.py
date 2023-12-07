@@ -76,12 +76,12 @@ class Task(models.Model):
     def update_task_status(self):
         if self.time_completed:
             if self.deadline >= self.time_completed.date():
-                self.status = 'Completed on time'
+                self.status = "Completed on time"
             else:
-                self.status = 'Completed after the deadline'
+                self.status = "Completed after the deadline"
         else:
             if self.deadline >= timezone.now().date():
-                self.status = 'In progress'
+                self.status = "In progress"
             else:
-                self.status = 'In progress after the deadline'
+                self.status = "In progress after the deadline"
         self.save()
