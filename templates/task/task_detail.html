@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Task: {{ task.name }}
+    <a href="{% url 'task:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+
+    <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+
+    {% if user in task.assignees.all and not task.is_completed %}
+      <a href="{% url 'task:finish-task' pk=task.id %}" class="btn btn-primary link-to-page">
+        Finish task
+      </a>
+    {% endif %}
+  </h1>
+
+  <p><strong>Description:</strong> {{ task.description }}</p>
+  <p><strong>Task type:</strong> {{ task.task_type }}</p>
+  <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+  {% if task.is_completed %}
+        <p><strong>Time competed:</strong> {{ task.time_completed }}</p>
+      {% endif %}
+
+  <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+
+  {{ task_in }}
+  <div class="ml-3">
+    <h4>Workers
+      {% if task in user.tasks.all %}
+        <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-danger link-to-page">
+          Delete me from this task
+        </a>
+      {% else %}
+        <a href="{% url 'task:toggle-task-assign' pk=task.id %}" class="btn btn-success link-to-page">
+          Assign me to this task
+        </a>
+      {% endif %}
+    </h4>
+
+    {% for worker in task.assignees.all %}
+      <hr>
+      <p><strong>Username:</strong>
+        <a href="{% url "task:worker-detail" pk=worker.id %} ">{{ worker.username }}</a>
+      </p>
+      <p><strong>Position:</strong> {{ worker.position }}</p>
+      {% if worker.email %}
+        <p><strong>Email:</strong> {{ worker.email }}</p>
+      {% endif %}
+      {% if worker.first_name %}
+        <p><strong>First name:</strong> {{ worker.first_name }}</p>
+      {% endif %}
+      {% if worker.last_name %}
+        <p><strong>Last name:</strong> {{ worker.last_name }}</p>
+      {% endif %}
+    {% empty %}
+      <p>No workers!</p>
+    {% endfor %}
+  </div>
+{% endblock %}
